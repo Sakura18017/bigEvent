@@ -1,9 +1,12 @@
 $(function () {
 
+
   // 获取用户基本信息
   getUserInfo()
 
   function getUserInfo() {
+
+
     $.ajax({
       method: 'GET',
       url: '/my/userinfo',
@@ -27,6 +30,9 @@ $(function () {
       }
     })
   }
+
+  // window.getUserInfo = getUserInfo
+
 
   $('.logout').on('click', function () {
     layer.confirm('确定要退出吗?', { icon: 3, title: '提示' }, function (index) {
