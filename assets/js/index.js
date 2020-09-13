@@ -13,7 +13,7 @@ $(function () {
 
       success: function (res) {
         // console.log(res);
-        if (res.status != 0) {
+        if (res.status !== 0) {
           return layui.layer.msg('获取用户信息失败')
         }
         renderAvatar(res.data)
@@ -31,7 +31,7 @@ $(function () {
     })
   }
 
-  // window.getUserInfo = getUserInfo
+  window.getUserInfo = getUserInfo
 
 
   $('.logout').on('click', function () {
@@ -56,11 +56,12 @@ function renderAvatar(user) {
 
   // 判断是否有头像
   if (user.user_pic !== null) {
-    $('.layui-nav-img').attr('url', user.user_pic).show()
+    $('.layui-nav-img').attr('src', user.user_pic).show()
     $('.usertx').hide()
+    // console.log(user.user_pic);
   } else {
     var first = name[0].toUpperCase()
     $('.usertx').html(first).show()
-    $('.layui-nav-img').hide()
+    // $('.layui-nav-img').hide()
   }
 }

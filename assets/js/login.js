@@ -24,19 +24,24 @@ $(function () {
     }
   })
 
-  var data = {
-    username: $('.reg-box [name=username]').val(),
-    password: $('.reg-box [name=password]').val()
-  }
+  var data
   // var link = 'http://ajax.frontend.itheima.net'
   // 调用注册接口
   $('.reg-box').on('submit', function (e) {
     // 禁用默认行为
     e.preventDefault()
+
+    data = {
+      username: $('.reg-box [name=username]').val(),
+      password: $('.reg-box [name=password]').val()
+    }
+
     $.post('/api/reguser', data, function (res) {
+      console.log(res);
       if (res.status !== 0) {
         return layer.msg(res.message);
       }
+      console.log(res.status);
       layer.msg(res.message);
       $('#login').click()
 
