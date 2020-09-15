@@ -163,13 +163,13 @@ $(function () {
       limit: q.pagesize,
       curr: q.pagenum,
       // 页面的显示是根据配置的顺序展示的
-      layout:['count','limit','prev','page','next','skip'],
-      limits:[2,5,10],
+      layout: ['count', 'limit', 'prev', 'page', 'next', 'skip'],
+      limits: [2, 5, 10],
       jump: function (obj, first) {
         q.pagenum = obj.curr
         q.pagesize = obj.limit
-          // 如果直接调用initTable的话会产生死循环
-          // 通过第二个参数初始化，
+        // 如果直接调用initTable的话会产生死循环
+        // 通过第二个参数初始化，
 
         if (!first) {
           initTable()
@@ -178,6 +178,33 @@ $(function () {
       }
     })
   }
+
+  // 删除文章
+  $('body').on('click', '.del-btn', function () {
+
+    var artId = $(this).attr('data-id')
+    // 获取删除按钮的索引
+    var deletBtn = $('.del-btn').length
+
+    layer.confirm('确认删除?', { icon: 3, title: '提示' }, function (index) {
+      $.ajax({
+        url: '/my/article/delete/' + artId,
+        method: 'get',
+        success: function (res) {
+          layer.msg(res.message)
+          // 当num等于1时不再减少
+          if (deletBtn === 1) {
+            q.pagenum = q.pagenum === 1 ? 1 : q.pagenum-1
+          }
+
+          initTable()
+          layer.close(index)
+        },
+      })
+    }
+    )
+  }
+  )
 })
 //   })
 // })
